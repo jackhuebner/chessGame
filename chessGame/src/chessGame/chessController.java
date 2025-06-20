@@ -32,6 +32,10 @@ public class chessController{
 				//x = 1;
 				//0,0 is top left corner
 				//so it passes in the row it's in and the col it's in (first button being 0,0)
+				
+				//so row is [0][1] [0][2]
+				
+				//ah square clicked is the row
 				buttons[row][col].addActionListener(e -> squareClicked(finalRow,finalCol));
 
 			}
@@ -44,10 +48,18 @@ public class chessController{
 	 * @param row
 	 */
 	//so if the square clicked highlighted the moves
-	private void squareClicked(int col, int row) {
+	
+	//so i pass in the col
+	
+	//so col supposed to be row
+	private void squareClicked(int row, int col) {
 
 		if (moves.isEmpty()) {
-			moves = chessLogic.highlightedMoves(col,row);
+			//then row
+			//good here for moves
+			//row,col
+			moves = chessLogic.highlightedMoves(row,col);
+			//good here
 			chessBoard.highLighting(moves);
 			recentRow = row;
 			recentCol = col;
@@ -56,7 +68,8 @@ public class chessController{
 		}
 
 		//SO POINT OPERATES COL ROW TO GET THE SAME BUTTOn
-		else if(moves.contains(new Point(col,row))){
+		//row, col
+		else if(moves.contains(new Point(row,col))){
 			chessBoard.unhighlight(moves);
 			moves.clear();
 			chessLogic.movePiece(recentRow, recentCol, row,col);

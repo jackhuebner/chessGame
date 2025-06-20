@@ -63,16 +63,22 @@ public class chessView{
 				button = new JButton(new ImageIcon(scaledImage));
 			}
 			
+			
 			buttonPanel.add(button);
 			button.setOpaque(false);                  
 			button.setContentAreaFilled(false);
 			button.setFocusPainted(false);
 			buttonBoard[row][col] = button;
+			
+		
 			//my buttonboard has 
 			col++;
 			//so I create a list of buttons and then pass trhough which button
 			// I want to click 
 		}
+		//javax.swing.ImageIcon@3b1316a4
+
+		//
 		
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -107,10 +113,10 @@ public class chessView{
 	}
 	
 	public void updateBoard(int recentRow, int recentCol, int row, int col) {
-				buttonBoard[col][row].setIcon(buttonBoard[recentCol][recentRow].getIcon());
-				System.out.println(buttonBoard[recentCol][recentRow].getIcon());
+				buttonBoard[row][col].setIcon(buttonBoard[recentRow][recentCol].getIcon());
+				System.out.println(buttonBoard[recentRow][recentCol].getIcon());
 				System.out.println("UPDATE!");
-				buttonBoard[recentCol][recentRow].setIcon(null);
+				buttonBoard[recentRow][recentCol].setIcon(null);
 				//KEEP IN MIND col then row works for this to get the same location
 		}
 }
