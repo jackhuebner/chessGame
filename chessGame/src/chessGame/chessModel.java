@@ -28,20 +28,28 @@ public class chessModel {
 		//so edit this
 		int counter = 0;
 		int emptyCounter = 0;
+		int pawnCounter = 1;
+		int knightCounter = 1;
+		int bishopCounter = 1;
+		int rookCounter = 1;
+		
 		for (int i = 0; i <=7; i++) {
 			for (int j = 0; j<=7; j++) {
 				chessPiece piece = chessBoard[i][j];
 				//so if the piece is a pawn
 				String pieceName = piece.getName();
 				if (i == 0) {
-					if (pieceName.equals("Pawn")) {
-						pieces.put(pieceName,"img/chessPieces/black-rook");
+					if (pieceName.equals("Rook")) {
+						pieces.put(pieceName + rookCounter,"img/chessPieces/black-rook");
+						rookCounter++;
 					}
 					else if(pieceName.equals("Knight")) {
-						pieces.put(pieceName,"img/chessPieces/black-knight");
+						pieces.put(pieceName + knightCounter,"img/chessPieces/black-knight");
+						knightCounter++;
 					}
 					else if(pieceName.equals("Bishop")) {
-						pieces.put(pieceName,"img/chessPieces/black-bishop");
+						pieces.put(pieceName + bishopCounter,"img/chessPieces/black-bishop");
+						bishopCounter++;
 					}
 					else if(pieceName.equals("Queen")) {
 						pieces.put(pieceName,"img/chessPieces/black-queen");
@@ -49,28 +57,34 @@ public class chessModel {
 					else if(pieceName.equals("King")) {
 						pieces.put(pieceName,"img/chessPieces/black-king");
 					}
+					
 				}
 				else if(i==1) {
-					pieces.put(pieceName, "img/chessPieces/black-pawn");
+					pieces.put(pieceName + pawnCounter, "img/chessPieces/black-pawn");
+					pawnCounter++;
 				}
 				else if(i==6) {
-					pieces.put(pieceName, "img/chessPieces/white-pawn");
+					pieces.put(pieceName+ pawnCounter, "img/chessPieces/white-pawn");
+					pawnCounter++;
 				}
 				else if (i == 7) {
 					if (pieceName.equals("Rook")) {
-						pieces.put(pieceName,"img/chessPieces/white-rook");
+						rookCounter++;
+						pieces.put(pieceName + rookCounter,"img/chessPieces/white-rook");
 					}
 					else if(pieceName.equals("Knight")) {
-						pieces.put(pieceName,"img/chessPieces/white-knight");
+						knightCounter++;
+						pieces.put(pieceName + knightCounter,"img/chessPieces/white-knight");
 					}
 					else if(pieceName.equals("Bishop")) {
-						pieces.put(pieceName,"img/chessPieces/white-bishop");
+						bishopCounter++;
+						pieces.put(pieceName+ bishopCounter,"img/chessPieces/white-bishop");
 					}
 					else if(pieceName.equals("Queen")) {
-						pieces.put(pieceName,"img/chessPieces/white-queen");
+						pieces.put(pieceName+ "1","img/chessPieces/white-queen");
 					}
 					else if(pieceName.equals ("King")) {
-						pieces.put(pieceName,"img/chessPieces/white-king");
+						pieces.put(pieceName+ "1","img/chessPieces/white-king");
 					}
 				}
 				else{
@@ -83,228 +97,27 @@ public class chessModel {
 	
 	public ArrayList<Point> highlightedMoves(int row, int col) {	
 		//y,x
-		int[][] pawnMoves = {{1,0},{2,0},{1,1},{1,-1}};
-		//in my array so nextRow (Y), nextCol (X)
-		int[][] knightMoves = {{1,2},{-1,2},{-2,1},{-2,-1},{-1,-2},{1,-2},
-								{2,-1},{2,1}};
-		int[][] bishopMoves = {{1,1},{-1,1},{-1,-1},{1,-1}};
-		int[][] queenMoves = {{1,1},{-1,1},{-1,-1},{1,-1},{0,1},{-1,0},
-								{1,0},{0,-1}};
-		int[][] krMoves = {{0,1},{-1,0},{1,0},{0,-1}};
-		
-		// So here is where i highlight moves, i pass in the row and col it's in 
-		// and then i create pieces in the chessboard
-		
-		ArrayList<Point> legalMoves = new ArrayList();
-		//I pass the button clicked to over here
-		//so now make sure to move pieces.
-		//the spaces are highlighted 
-		else if(piece.contains("N")) {
-			for (int i = 0; i < 8; i++) {
-					if (piece.contains("w")){
-						int nextRow = row + (knightMoves[i][0]*-1);
-						int nextCol = col +(knightMoves[i][1]*-1);
-						
-						if (nextRow < 8 && nextCol>= 0 && nextRow>=0 && nextCol < 8) {
-							String potentialSpace = chessBoard[nextRow][nextCol];
-							if(potentialSpace != null && !potentialSpace.contains("w")){
-							//highlight the space
-							legalMoves.add(new Point(nextRow,nextCol));
-							}
-						}	
-					}
-					else if(piece.contains("b")) {
-						int nextRow =row + (knightMoves[i][0]);
-						int nextCol = col+(knightMoves[i][1]);
-						if (nextRow < 8 && nextCol>= 0 && nextRow>=0 && nextCol < 8) {
-							String potentialSpace = chessBoard[nextRow][nextCol];
-							if(potentialSpace != null && !potentialSpace.contains("b")){
-							//highlight the space
-								legalMoves.add(new Point(nextRow,nextCol));
-							}
-						}
-					}
-		}
-		}
-		
-//		//depends whther or not continuing going down 
-//		else if(piece.contains("B")) {
-//			for (int i = 0; i < 4; i++) {
-//					if (piece.contains("w")){
-//						int nextRow = row + bishopMoves[i][0];
-//						int nextCol = col+bishopMoves[i][1];
-//						String potentialSpace = chessBoard[nextRow][nextCol];
-//						//say im next to a white 
-//						if (potentialSpace.equals("--")) {
-//							// highlight the space but keep going 
-//							legalMoves.add(new Point(nextRow,nextCol));
-//							while (potentialSpace.equals("--")){
-//								potentialSpace = chessBoard[nextRow][nextCol];
-//								if (potentialSpace.contains("b")) {
-//									//highlight the space
-//									legalMoves.add(new Point(nextRow,nextCol));
-//								}
-//								nextRow+= bishopMoves[i][0];
-//								nextCol+= bishopMoves[i][1];
-//							}
-//						}
-//						else if(potentialSpace.contains("b")) {
-//							//highlight capturing space
-//							legalMoves.add(new Point(nextRow,nextCol));
-//						}
-//						// but add something for it to keep going
-//						
-//					}
-//					else if(piece.contains("b")) {
-//						//so at 0,0 it returns the column, and then the 
-//						int nextRow = row+(bishopMoves[i][0]*-1);
-//						int nextCol = col+(bishopMoves[i][1]*-1);
-//						String potentialSpace = chessBoard[nextRow][nextCol];;
-//						//say im next to a white 
-//						if (potentialSpace.equals("--")) {
-//							// highlight the space but keep going 
-//							legalMoves.add(new Point(nextRow,nextCol));
-//							while (potentialSpace.equals("--")){
-//								potentialSpace = chessBoard[nextRow][nextCol];
-//								if (potentialSpace.contains("w")) {
-//									//highlight the space
-//									legalMoves.add(new Point(nextRow,nextCol));
-//								}
-//								//So basically exiting the for loop 
-//								//so I add the row and the column
-//								// so if bishop 
-//								nextRow+=(bishopMoves[i][0]*-1);
-//								nextCol+=(bishopMoves[i][1]*-1);
-//							}
-//						}
-//						else if(potentialSpace.contains("w")){
-//							//Highlight Space 
-//							legalMoves.add(new Point(nextRow,nextCol));
-//						}
-//					}
-//			}
-//		}
-//		
-//		else if(piece.contains("Q")) {
-//			//if the piece contains a queen 
-//			for (int i = 0; i < 8; i++) {
-//					if (piece.contains("w")){
-//						int nextRow = row+queenMoves[i][0];
-//						int nextCol = col+queenMoves[i][1];
-//						String potentialSpace = chessBoard[nextRow][nextCol];
-//						
-//						if (potentialSpace.equals("--")){
-//							//highlight the space but keep going
-//							legalMoves.add(new Point(nextRow,nextCol));
-//							while (potentialSpace.equals("--")) {
-//								potentialSpace = chessBoard[nextRow][nextCol];
-//								if (potentialSpace.contains("b")) {
-//									//highlight space
-//									legalMoves.add(new Point(nextRow,nextCol));
-//								}
-//								nextRow+=queenMoves[i][0];
-//								nextCol+=queenMoves[i][1];
-//							}
-//						}
-//						else if (potentialSpace.contains("b")) {
-//							//HighlightSpace
-//							legalMoves.add(new Point(nextRow,nextCol));
-//						}
-//					}
-//					else if (piece.contains("b")) {
-//						//check on this 
-//						int nextRow = row+queenMoves[i][0];
-//						int nextCol = col+queenMoves[i][1];
-//						String potentialSpace = chessBoard[nextRow][nextCol];
-//						
-//						if (potentialSpace.equals("--")){
-//							//highlight the space but keep going
-//							legalMoves.add(new Point(nextRow,nextCol));
-//							while (potentialSpace.equals("--")) {
-//								potentialSpace = chessBoard[nextRow][nextCol];
-//								if (potentialSpace.contains("w")) {
-//									//highlight space
-//									legalMoves.add(new Point(nextRow,nextCol));
-//								}
-//								nextRow+=queenMoves[i][0];
-//								nextCol+=queenMoves[i][1];
-//							}
-//						}
-//						else if (potentialSpace.contains("w")) {
-//							//HighlightSpace
-//							legalMoves.add(new Point(nextRow,nextCol));
-//						}
-//					}
-//			}
-//		}
-//		
-//		else if(piece.contains("K")) {
-//			for (int i = 0; i < 4; i++) {
-//					if (piece.contains("w")) {
-//						int nextRow =row + krMoves[i][0];
-//						int nextCol = col+krMoves[i][1];
-//						String potentialSpace = chessBoard[nextRow][nextCol];
-//						if (potentialSpace.equals("--") || potentialSpace.contains("b")) {
-//							//highlight space
-//							legalMoves.add(new Point(nextRow,nextCol));
-//						}
-//					}
-//					else if (piece.contains("b")) {
-//						int nextRow =row + (krMoves[i][0]*-1);
-//						int nextCol = col+(krMoves[i][1]*-1);
-//						String potentialSpace = chessBoard[nextRow][nextCol];
-//						if (potentialSpace.equals("--") || potentialSpace.contains("w")) {
-//							//highlight space
-//							legalMoves.add(new Point(nextRow,nextCol));
-//						}
-//					}
-//			}
-//		}
-//		
-//		//work on this 
-//	
-//		else if(piece.contains("R")) {
-//			for (int i = 0; i < 4; i++) {
-//				//Make sure to add a while loop for contuning spaces
-//					if (piece.contains("w")) {
-//						int nextRow =row + krMoves[i][0];
-//						int nextCol = col+krMoves[i][1];
-//						String potentialSpace = chessBoard[nextRow][nextCol];
-//						if (potentialSpace.equals("--")) {
-//							//highlight space
-//							legalMoves.add(new Point(nextRow,nextCol));
-//						}
-//						else if(potentialSpace.contains("b")) {
-//							legalMoves.add(new Point(nextRow,nextCol));
-//						}
-//					}
-//					else if (piece.contains("b")) {
-//						int nextRow =row + krMoves[i][0];
-//						int nextCol = col+krMoves[i][1];
-//						String potentialSpace = chessBoard[nextRow][nextCol];
-//						if (potentialSpace.equals("--") || potentialSpace.contains("w")) {
-//							//highlight space
-//							legalMoves.add(new Point(nextRow,nextCol));
-//						}
-//					}
-//			}
-//		}
-		System.out.println(legalMoves);
-		return legalMoves;
+		System.out.println("highlighted row: " + row);
+		System.out.println("highlighted col: " + col);
+		chessPiece piece = chessBoard[row][col];
+		//correct row and col here, same as the piece
+		//here's the problem i pass in the chessBoard 
+		return piece.legalMoves(chessBoard, row, col);
 		
 	}
 	
 	public void movePiece(int recentRow, int recentCol, int row, int col) {
-		String recentPieceSpace = chessBoard[recentRow][recentCol];
+		chessPiece recentPieceSpace = chessBoard[recentRow][recentCol];
+		//has a piece 
 		System.out.println("RECENT PIECE:" + recentPieceSpace);
-		String newPieceSpace = chessBoard[row][col];
+		chessPiece newPieceSpace = chessBoard[row][col];
 		
 		//Else if condiiton
 		chessBoard[row][col] = recentPieceSpace;
 		chessBoard[recentRow][recentCol] = newPieceSpace;
 	}
 	
-	public String[][] getBoard() {
+	public	chessPiece[][] getBoard() {
 		return chessBoard;
 	}
 	
@@ -313,9 +126,13 @@ public class chessModel {
 	 * @return
 	 */
 	public LinkedHashMap<String,String> getPieces() {
+		//so i pass in pieces 
 		return pieces;
 	}
 
+	
+	//ALRIGHT!
+	//SO the code 
 //	Game Logic Implementation: Craft the fundamental logic for chess, including piece movements, capturing mechanics, and game-ending conditions like checkmate.
 //	Graphical User Interface (GUI) Design: Utilize the Swing framework to design and implement a user-friendly and visually appealing interface for the chess game.
 //	Event-Driven Programming: Manage user interactions through event listeners, enabling players to move pieces, respond to game states, and interact with the game dynamically.

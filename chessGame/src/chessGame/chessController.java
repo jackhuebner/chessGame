@@ -52,12 +52,15 @@ public class chessController{
 	//so i pass in the col
 	
 	//so col supposed to be row
+	//so i c,ick on the
 	private void squareClicked(int row, int col) {
 
 		if (moves.isEmpty()) {
 			//then row
 			//good here for moves
 			//row,col
+
+
 			moves = chessLogic.highlightedMoves(row,col);
 			//good here
 			chessBoard.highLighting(moves);

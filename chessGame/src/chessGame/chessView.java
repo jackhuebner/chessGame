@@ -57,13 +57,15 @@ public class chessView{
 			
 			JButton button = new JButton();
 			
+			
+			//so if the image
 			if (!image.equals("--")) {
 				ImageIcon originalIcon = new ImageIcon(image + ".png");
 				Image scaledImage = originalIcon.getImage().getScaledInstance(75, 75, Image.SCALE_SMOOTH);
 				button = new JButton(new ImageIcon(scaledImage));
 			}
 			
-			
+			//something wrong here
 			buttonPanel.add(button);
 			button.setOpaque(false);                  
 			button.setContentAreaFilled(false);
