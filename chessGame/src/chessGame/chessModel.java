@@ -109,12 +109,20 @@ public class chessModel {
 	public void movePiece(int recentRow, int recentCol, int row, int col) {
 		chessPiece recentPieceSpace = chessBoard[recentRow][recentCol];
 		//has a piece 
-		System.out.println("RECENT PIECE:" + recentPieceSpace);
 		chessPiece newPieceSpace = chessBoard[row][col];
 		
 		//Else if condiiton
+		//for things captured!
+		// so if the 
+		
+		// so i take the place where i was at and now that spot is null
+		
+		// sop i change the spot to where i go to my piece and the spot where i left to null piece
+		
+		chessBoard[recentRow][recentCol] = new  NullPiece();
 		chessBoard[row][col] = recentPieceSpace;
-		chessBoard[recentRow][recentCol] = newPieceSpace;
+
+
 	}
 	
 	public	chessPiece[][] getBoard() {
