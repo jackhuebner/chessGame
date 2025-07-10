@@ -9,8 +9,8 @@ public class chessController{
 	private int recentRow = -1;
 	private int recentCol = -1;
 	private ArrayList<Point> moves;
-	private String player = "white";
-	private String opponent = "black";
+	private String player = "White";
+	private String opponent = "Black";
 	
 	// add inheritance for legal moves take moves 
 	// Next focus on inheritance next time working on this!
@@ -80,7 +80,7 @@ public class chessController{
 		// if the square clicked has a color and it's opposite of player etc
 		
 	
-		if (!chessLogic.getBoard()[row][col].getColor().equals("--") && chessLogic.getBoard()[row][col].getColor().equals(player)) {
+		if (!chessLogic.getBoard()[row][col].getColor().equals("--") && chessLogic.getBoard()[row][col].getColor().equals(player.toLowerCase())) {
 			
 			if (moves.isEmpty()) {
 				//then row
@@ -117,6 +117,9 @@ public class chessController{
 			player = opponent;
 			//player = black
 			opponent = oppositeColor;
+			
+			chessBoard.changeTurn(player);
+
 			// white now = black
 
 			// PRINT BLACK TURN, WHITE TURN

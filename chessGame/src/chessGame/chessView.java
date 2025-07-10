@@ -1,12 +1,17 @@
 package chessGame;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.*;
 import java.util.ArrayList;
 
 public class chessView{
 	private ArrayList<JButton> buttonList;
 	private chessModel chessLogic;
 	private JButton[][] buttonBoard;
+	private String player;
+	private JLabel label;
+	private JLabel lineLabel;
+	private JLabel lineLabel1;
 	//so i have view, model and controller.
 	//Controller allows me to click on button then i select where to move
 	public chessView() {
@@ -17,7 +22,7 @@ public class chessView{
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		
-		layeredPane.setPreferredSize(new Dimension(600,600));
+		layeredPane.setPreferredSize(new Dimension(730,600));
 		
 		ImageIcon boardIcon = new ImageIcon("img/chessBoard.jpg");
 		
@@ -33,6 +38,43 @@ public class chessView{
 		buttonPanel.setBounds(23,23,554,554);
 		buttonPanel.setOpaque(false);
 		layeredPane.add(buttonPanel, Integer.valueOf(1));
+		
+		JPanel bottomPanel = new JPanel();
+		
+		bottomPanel.setBounds(600,0,130,600);
+		bottomPanel.setBackground(Color.GRAY);
+		layeredPane.add(bottomPanel, Integer.valueOf(0));
+		
+		this.player = "White";
+		label = new JLabel("<html><div style = 'text-align: center;'><b>" + player + "'s<br>Turn</b></div></html>");
+		
+		label.setHorizontalAlignment(SwingConstants.CENTER);  
+		label.setForeground(Color.WHITE);
+		Font customFont = new Font("Georgia", Font.BOLD, 20);
+		label.setFont(customFont);
+		//x, y, width, height
+		label.setBounds(615, 263, 100, 70);
+		Border boldBorder = BorderFactory.createLineBorder(Color.BLACK, 3);
+		label.setBorder(boldBorder);
+		
+		lineLabel = new JLabel();
+		lineLabel1 = new JLabel();
+		lineLabel.setBounds(630, 197, 70,3);
+		lineLabel1.setBounds(630, 383, 70,3);
+		
+		//so adds +3, the height is 40
+		//so 267-70 && 313 - 70
+
+		lineLabel.setBorder(boldBorder);
+		lineLabel1.setBorder(boldBorder);
+
+
+		
+		
+		
+		layeredPane.add(label, Integer.valueOf(2));
+		layeredPane.add(lineLabel, Integer.valueOf(2));
+		layeredPane.add(lineLabel1, Integer.valueOf(2));
 		
 		this.chessLogic = new chessModel();
 	
@@ -121,4 +163,25 @@ public class chessView{
 				buttonBoard[recentRow][recentCol].setIcon(null);
 				//KEEP IN MIND col then row works for this to get the same location
 		}
+	
+	public void changeTurn(String player) {
+		this.player = player;
+		label.setText("<html><div style = 'text-align: center;'><b>" + player + "'s<br>Turn</b></div></html>");
+		
+		if (player.equals("White")) {
+			label.setForeground(Color.WHITE);
+			Border boldBorder = BorderFactory.createLineBorder(Color.BLACK, 3);
+			label.setBorder(boldBorder);
+			lineLabel.setBorder(boldBorder);
+			lineLabel1.setBorder(boldBorder);
+		}
+		else {
+			label.setForeground(Color.BLACK);
+			Border boldBorder = BorderFactory.createLineBorder(Color.WHITE, 3);
+			label.setBorder(boldBorder);
+			lineLabel.setBorder(boldBorder);
+			lineLabel1.setBorder(boldBorder);
+		}
+		
+	}
 }
